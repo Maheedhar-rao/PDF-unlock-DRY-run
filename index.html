@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PDF Permission Remover</title>
+</head>
+<body>
+  <h2>Upload PDF to Remove Restrictions</h2>
+  <form id="uploadForm">
+    <input type="file" id="pdfInput" accept="application/pdf" required />
+    <button type="submit">Upload & Clean</button>
+  </form>
+  <div id="status"></div>
+  <script>
+    const form = document.getElementById('uploadForm');
+    const status = document.getElementById('status');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const file = document.getElementById('pdfInput').files[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append('pdf', file);
+
+      status.innerText = 'Processing...';
+
+      const res = await fetch('/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (res.ok) {
+        const blob = await res.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `cleaned_${file.name}`;
+        a.click();
+        status.innerText = 'Done. File downloaded.';
+      } else {
+        status.innerText = 'Error processing file.';
+      }
+    });
+  </script>
+</body>
+</html>
