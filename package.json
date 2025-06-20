@@ -1,0 +1,24 @@
+{
+  "name": "pdf-permission-remover",
+  "version": "1.0.0",
+  "description": "Removes user permissions from uploaded PDF files using pdf-lib",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.4",
+    "multer": "^1.4.5-lts.1",
+    "pdf-lib": "^1.17.1"
+  },
+  "keywords": [
+    "pdf",
+    "permissions",
+    "remove",
+    "pdf-lib",
+    "express",
+    "upload"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
